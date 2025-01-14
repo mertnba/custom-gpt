@@ -12,8 +12,8 @@ The repository is organized into the following directories:
 
 - **`train/`**: Includes scripts for training the model.
   - `train.py`: Contains the main training loop, including gradient updates, loss computation, validation, and logging.
-  - `train/scheduler.py`: Implements the learning rate scheduler logic.
-  - `train/logger.py`: Handles logging of training and validation metrics.
+  - `scheduler.py`: Implements the learning rate scheduler logic.
+  - `logger.py`: Handles logging of training and validation metrics.
 
 - **`utils/`**: Utility functions for common tasks.
   - `helpers.py`: Contains functions like `load_tokens`, `get_most_likely_row`, and other reusable utilities.
