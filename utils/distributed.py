@@ -1,7 +1,6 @@
 import os
 import torch
 import torch.distributed as dist
-from torch.nn.parallel import DistributedDataParallel as DDP
 
 def setup_distributed():
     """
@@ -36,3 +35,14 @@ def cleanup_distributed():
     if dist.is_initialized():
         dist.destroy_process_group()
         print("Distributed training resources cleaned up.")
+
+def synchronize_gradients(loss_accum, op=dist.ReduceOp.SUM):
+    """
+    Synchronize gradients across distributed processes.
+
+    Args:
+        loss_accum (Tensor): The accumulated loss to be synchronized.
+        op (ReduceOp): The reduction operation (default: SUM).
+    """
+    if dist.is_initialized():
+        dist.all_reduce(loss_accum, op=op)
