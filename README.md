@@ -16,7 +16,8 @@ The repository is organized into the following directories:
   - `logger.py`: Handles logging of training and validation metrics.
 
 - **`utils/`**: Utility functions for common tasks.
-  - `helpers.py`: Contains functions like `load_tokens`, `get_most_likely_row`, and other reusable utilities.
+  - `helpers.py`: Contains reusable helper functions, such as tensor manipulation, data validation, or token processing.
+  - `distributed.py`: Handles distributed training setup and teardown.
 
 - **`distributed/`**: Handles distributed training setup.
   - `distributed_setup.py`: Initializes and manages distributed training.
