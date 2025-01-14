@@ -44,3 +44,22 @@ def save_checkpoint(model, optimizer, step, path):
         'step': step
     }, path)
     print(f"Checkpoint saved at {path}")
+
+def load_checkpoint(model, optimizer, path):
+    """
+    Load a model checkpoint.
+
+    Args:
+        model (nn.Module): The model to load the state into.
+        optimizer (Optimizer): The optimizer to load the state into.
+        path (str): File path to the checkpoint.
+
+    Returns:
+        int: The training step loaded from the checkpoint.
+    """
+    checkpoint = torch.load(path)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    step = checkpoint['step']
+    print(f"Checkpoint loaded from {path}")
+    return step
