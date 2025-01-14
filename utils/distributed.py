@@ -7,7 +7,7 @@ def setup_distributed():
     Set up the environment for distributed training.
 
     Returns:
-        dict: A dictionary containing rank, local_rank, and world_size.
+        dict: A dictionary containing rank, local_rank, world_size, and is_distributed status.
     """
     rank = int(os.environ.get('RANK', -1))
     local_rank = int(os.environ.get('LOCAL_RANK', -1))
@@ -30,7 +30,7 @@ def setup_distributed():
 
 def cleanup_distributed():
     """
-    Clean up distributed training resources.
+    Clean up resources used for distributed training.
     """
     if dist.is_initialized():
         dist.destroy_process_group()
@@ -38,11 +38,36 @@ def cleanup_distributed():
 
 def synchronize_gradients(loss_accum, op=dist.ReduceOp.SUM):
     """
-    Synchronize gradients across distributed processes.
+    Synchronize gradients across all processes.
 
     Args:
-        loss_accum (Tensor): The accumulated loss to be synchronized.
-        op (ReduceOp): The reduction operation (default: SUM).
+        loss_accum (Tensor): The accumulated loss to synchronize.
+        op (ReduceOp): Reduction operation (default: SUM).
     """
     if dist.is_initialized():
         dist.all_reduce(loss_accum, op=op)
+
+def broadcast_parameters(model):
+    """
+    Broadcast model parameters from rank 0 to all other ranks.
+
+    Args:
+        model (nn.Module): The PyTorch model whose parameters are broadcast.
+    """
+    if dist.is_initialized():
+        for param in model.parameters():
+            dist.broadcast(param.data, src=0)
+
+def average_gradients(model):
+    """
+    Averages gradients across all processes.
+
+    Args:
+        model (nn.Module): The PyTorch model whose gradients are averaged.
+    """
+    if dist.is_initialized():
+        world_size = dist.get_world_size()
+        for param in model.parameters():
+            if param.grad is not None:
+                dist.all_reduce(param.grad.data, op=dist.ReduceOp.SUM)
+                param.grad.data /= world_size
