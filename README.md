@@ -2,16 +2,18 @@
 The repository is organized into the following directories:
 
 - **`model/`**: Defines the transformer model and its components.
-  - config.py: Contains the GPTConfig dataclass for configuring model parameters such as the number of layers, heads, and embedding dimensions.
-  - layers.py: Implements reusable building blocks for the model, including CausalSelfAttention, MLP, and Block.
-  - gpt.py: Combines the layers and configuration into the full GPT model, including token embeddings, positional encodings, and forward logic.
+  - `config.py`: Contains the GPTConfig dataclass for configuring model parameters such as the number of layers, heads, and embedding dimensions.
+  - `layers.py`: Implements reusable building blocks for the model, including CausalSelfAttention, MLP, and Block.
+  - `gpt.py`: Combines the layers and configuration into the full GPT model, including token embeddings, positional encodings, and forward logic.
   
 - **`data/`**: Contains data loading utilities.
-  - dataloader.py: Contains the DataLoaderLite class for managing data shards, batching, and loading sequences for training and validation.
-  - utils.py: Contains helper functions such as load_tokens for loading preprocessed tokenized data into tensors.
+  - `dataloader.py`: Contains the DataLoaderLite class for managing data shards, batching, and loading sequences for training and validation.
+  - `utils.py`: Contains helper functions such as load_tokens for loading preprocessed tokenized data into tensors.
 
 - **`train/`**: Includes scripts for training the model.
-  - `train.py`: Contains the main training loop, gradient updates, validation, and logging.
+  - `train.py`: Contains the main training loop, including gradient updates, loss computation, validation, and logging.
+  - `train/scheduler.py`: Implements the learning rate scheduler logic.
+  - `train/logger.py`: Handles logging of training and validation metrics.
 
 - **`utils/`**: Utility functions for common tasks.
   - `helpers.py`: Contains functions like `load_tokens`, `get_most_likely_row`, and other reusable utilities.
