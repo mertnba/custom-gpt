@@ -7,7 +7,8 @@ The repository is organized into the following directories:
   - gpt.py: Combines the layers and configuration into the full GPT model, including token embeddings, positional encodings, and forward logic.
   
 - **`data/`**: Contains data loading utilities.
-  - `dataloader.py`: Implements `DataLoaderLite` for loading and batching tokenized sequences.
+  - dataloader.py: Contains the DataLoaderLite class for managing data shards, batching, and loading sequences for training and validation.
+  - utils.py: Contains helper functions such as load_tokens for loading preprocessed tokenized data into tensors.
 
 - **`train/`**: Includes scripts for training the model.
   - `train.py`: Contains the main training loop, gradient updates, validation, and logging.
