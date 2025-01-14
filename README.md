@@ -19,11 +19,9 @@ The repository is organized into the following directories:
   - `helpers.py`: Contains reusable helper functions, such as tensor manipulation, data validation, or token processing.
   - `distributed.py`: Handles distributed training setup and teardown.
 
-- **`distributed/`**: Handles distributed training setup.
-  - `distributed_setup.py`: Initializes and manages distributed training.
-
 - **`evaluation/`**: Scripts for evaluating the model on tasks like HellaSwag.
-  - `evaluation.py`: Contains HellaSwag evaluation logic and result computation.
+  - `evaluation.py`: Contains the core evaluation logic, including loss computation and HellaSwag evaluation.
+  - `utils.py`: Utility functions to assist in evaluation, such as calculating metrics or formatting results.
 
 ## Features
 - Full implementation of a GPT model with modular design.
