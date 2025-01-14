@@ -2,8 +2,9 @@
 The repository is organized into the following directories:
 
 - **`model/`**: Defines the transformer model and its components.
-  - `gpt.py`: Implements the GPT model and supporting layers like `Block`, `CausalSelfAttention`, and `MLP`.
-  - `config.py`: Defines the `GPTConfig` dataclass for configuring model parameters.
+  - config.py: Contains the GPTConfig dataclass for configuring model parameters such as the number of layers, heads, and embedding dimensions.
+  - layers.py: Implements reusable building blocks for the model, including CausalSelfAttention, MLP, and Block.
+  - gpt.py: Combines the layers and configuration into the full GPT model, including token embeddings, positional encodings, and forward logic.
   
 - **`data/`**: Contains data loading utilities.
   - `dataloader.py`: Implements `DataLoaderLite` for loading and batching tokenized sequences.
